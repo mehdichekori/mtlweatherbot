@@ -2,8 +2,8 @@ var request = require('request');
 var Twit = require('twit')
 var config = require('./config');
 var url = 'http://api.openweathermap.org/data/2.5/weather?q=Montreal&APPID=8b5d20a4d6441d9fab48bd8bda62ebc4&units=metric';
-
 var T = new Twit(config);
+var lastTemp;
 
 GetTemp = function(){
   request({
@@ -12,10 +12,15 @@ GetTemp = function(){
   }, function (error,response,body){
     if(!error && response.statusCode === 200){
       console.log("The current weather in montreal is "+body.main.temp+"°C");
-      TweetTemp(body.main.temp);
+      if(lastTemp != body.main.temp){
+          TweetTemp(body.main.temp);
+          console.log("The temperature has changed, tweeted the new value: "+body.main.temp +"°C");
+      }else{
+        console.log("The temperature hasn't changed since the last tweet waiting before sending another tweet.");
+      }
     }
     if(error){
-      console.log("Errog Triggered in GetTemp function");
+      console.log("Errog Triggered in GetTemp function.");
       console.log(error);
     }
   })
@@ -33,10 +38,11 @@ function TweetTemp(CurrentTemp){
 
   function tweeted(err,data,response){
     if(err){
-      console.log("Error Triggered in Tweeted Function");
+      console.log("Error Triggered in Tweeted Function.");
       console.log(err);
     } else {
-      console.log("Status tweeted sucessfully");
+      lastTemp = CurrentTemp;
+      console.log("Status tweeted sucessfully.");
     }
   }
 }
