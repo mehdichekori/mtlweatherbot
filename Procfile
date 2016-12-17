@@ -1,1 +1,1 @@
-worker: node mtlweatherbot.js
+worker: node MtlWeatherBot.js
