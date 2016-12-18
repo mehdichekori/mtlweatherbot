@@ -38,7 +38,7 @@ function TweetTemp(){
   //time = convertToServerTimeZone();
 
   var tweet = {
-    status: "Currently " + weatherDescription + " at " + currentTemp + "°C" + ", forcast: Min " + tempMin + "°C " + "& a Max of " + tempMax + "°C with " + humidity + "% Humidity and " + windspeed +"km/h wind. #montreal #montrealweather"
+    status: "Currently " + weatherDescription + " at " + currentTemp + "°C" + ", forcast: Min " + tempMin + "°C " + "& a Max of " + tempMax + "°C with " + humidity + "% Humidity and " + windspeed +"km/h winds. #montreal #montrealweather"
   }
 
   T.post('statuses/update',tweet,tweeted); //add check if currenttemp has load
